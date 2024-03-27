@@ -7,7 +7,7 @@ from math import ceil
 from dataloaders.params import INPUT_NAMES, OUTPUT_NAMES
 
 def parse_command():
-    model_names = ['RNN', 'GRU', 'LSTM', "Bi-LSTM"]
+    model_names = ['RNN', 'GRU', 'LSTM', "Bi-LSTM", "Transformer"]
     loss_names = ['l1', 'l2']
     data_names = ["uwb_dataset"]
 

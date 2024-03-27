@@ -130,7 +130,7 @@ class UpProj(Decoder):
             x2 = self.bottom_branch(x)
             x = x1 + x2
             x = self.relu(x)
-            return x
+            return xconv1
 
     def __init__(self, in_channels):
         super(UpProj, self).__init__()

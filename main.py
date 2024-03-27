@@ -113,8 +113,15 @@ def main():
             model = Model(input_dim=args.x_dim, hidden_dim=args.hidden_size, Y_target=args.y_target, model_type="lstm")
         elif args.arch == 'GRU':
             model = Model(input_dim=args.x_dim, hidden_dim=args.hidden_size, Y_target=args.y_target, model_type="gru")
+        elif args.arch == 'Transformer':
+            # Assuming the hidden_dim is suitable for d_model in Transformer
+            model = Model(input_dim=args.x_dim, hidden_dim=args.hidden_size, Y_target=args.y_target, model_type="transformer", num_heads=4, num_layers=2)
+        else:
+            raise ValueError("Unsupported architecture: {}".format(args.arch))
+
         if args.arch == 'RNN':
             model = Model(input_dim=args.x_dim, hidden_dim=args.hidden_size, Y_target=args.y_target, model_type="rnn")
+            print('here ')
         print("=> model created.")
 
         model_parameters = list(model.parameters())
@@ -122,11 +129,13 @@ def main():
         print("Num. of parameters: ", params)
 
         optimizer = torch.optim.Adam(model.parameters(), args.lr, weight_decay=args.weight_decay)
+        print('Minh: here3')
 
         # model = torch.nn.DataParallel(model).cuda() # for multi-gpu training
         model = model.cuda()
+        print('Minh: here4')
 
-
+    print('Minh: here')
     criterion = nn.MSELoss().cuda()
     # create results folder, if not already exists
     output_directory = utils.get_output_directory(args)
@@ -140,6 +149,7 @@ def main():
         test_csvs.append(test_csv_each)
     test_csv_total = os.path.join(output_directory, 'test.csv')
     test_csvs.append(test_csv_total)
+    print('Minh: here2')
 
     # 1 indicates total
     assert NUM_VAL_CSVS + 1 == len(test_csvs), "Something's wrong!"
